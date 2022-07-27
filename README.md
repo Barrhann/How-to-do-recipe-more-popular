@@ -1,2 +1,14 @@
-# How-to-do-recipe-more-popular
-This project analyzes and generates recommendations - a technical and non-technical report - on determining whether a meal recipe will be popular, increasing the conversion on the main page. The models used were Logistic Regression, KNN, Decision Tree, Random Forest, Gradient Boosting Classifier, and Voting Classifier.
+# Technical Summary
+In the course of the analysis, the following actions were taken:
+
+## Data Importing and Cleaning. 
+The dataset was loaded and examined for missing values and matching data types. As a result, missing and extremely large values were also found in the Calories feature. Missing values for this column have been dropped. Missing values for RecipeCategory have been replaced with a link to the recipe's name.
+
+## Exploratory Data Analysis. 
+The distributions of Contents –Calories, Cholesterol, Carbohydrates, Sugar, and Protein– across Popularity were examined. An appropriate logarithmic transformation was performed. In addition, we have created new features - Content per Serving, Content % Daily Value. We also looked at the amount of added Sugar in Carbohydrates, which helped us understand some of the consumer preferences. In addition, we have created dummy variables that include Top-Names and Top-Categories.
+
+## Classification Model Development. 
+Logistic Regression was taken for the basic model, which proved to be poor due to a mismatch with the client's requests. Initially, all features were included in the model; however, we determined the most important after establishing Random Forest. Customers didn't care about the calorie content, the inclusion of certain words in the name, or the commitment to a specific category. We simulated the resulting dataset with important features using KNN, Logistic Regression, Decision Tree, Random Forest, Gradient Boosting, and Voting Classifiers. A commitment was given to high values of true negatives and low values of false positives in the confusion_matrix. As a result, the KNN model was chosen, which was better performed according to these indicators, but the accuracy was not very high. Scaling brought no added value.
+
+## Best Model Development. 
+We implemented a hyperparameter using RandomizedSearch and determined the optimal parameter values for the KNN model. Precision was chosen as the primary target due to the case's specifics. For the client, the fact that a popular recipe will be displayed on the main page turned out to be more critical than an unpopular recipe can be popular. As a result, we injected the values into the final model and found that only 27% of the time, the model will incorrectly say that the recipe is popular. Since the company's current model reflects 75% accuracy, it is recommended to use both models for a weighted decision. It should be noted that the factors of sugar content in carbohydrates and protein content are the most important for buyers, which assumes adherence to a keto diet, which can be used for other Tasty Bytes decisions. In addition, a recommendation was made to investigate other factors, such as photo quality, prices, etc., since the composition of the recipe turned out not to be such a determining factor for the consumer.
